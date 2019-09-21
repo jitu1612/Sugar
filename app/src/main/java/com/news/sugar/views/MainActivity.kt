@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, com.news.sugar.R.layout.activity_main)
         setDialog(true)
         getCategory()
-        LipsTaskRX()
+        //LipsTaskRX()
     }
 
     fun getCategory() {
@@ -79,24 +79,11 @@ class MainActivity : AppCompatActivity() {
                     var list = allCategory.getCategory() as ArrayList<Category>
                     //Log.d("Logdresponse.200): ", allCategory.getCategory()?.size.toString())
 
-                    //getAllCategory()
-                    //LipsTaskRX()
-                    //LipsTaskService()
-                    //someTask(allCategory)
+
 
 
                     getAllCatData(allCategory, lipsCategory, faceCategory, eyesCategory).execute()
 
-
-
-                   // Log.d("Logd: ", "LipsTaskDone")
-                    /*var list = jsonResponse.getArticles() as ArrayList<Articles>
-
-                    adapter = RecylerViewAdapter(applicationContext, list);
-                    binding.recyclerview?.layoutManager = LinearLayoutManager(applicationContext)
-                    binding.recyclerview?.adapter = adapter
-                    binding.recyclerview?.setAdapter(adapter);
-                    Log.d("Logdresponse.200): ", jsonResponse.getArticles()?.size.toString())*/
                 } else {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                     setDialog(false)
@@ -208,194 +195,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    class FaceTask(
-        allCategory: CategoryPOJO,
-        list: ArrayList<Products>,
-        listFace: ArrayList<Products>,
-        listEye: ArrayList<Products>
-    ) : AsyncTask<Void, Void, Void>() {
-
-        var allCategory = allCategory
-        var list = list
-        var listFace = listFace
-        var listEye = listEye
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            // ...
-        }
-
-        override fun doInBackground(vararg params: Void?): Void? {
-
-            for (i in allCategory.getCategory()?.get(0)?.lips!!) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(NetworkCalls.Base_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-                val api = retrofit.create(NetworkCalls::class.java)
-
-                //var  u=allCategory.getCategory()?.get(0)?.lips!!.get(0)
-                //Log.d("LogdLipsTask: "+1, u)
-                var call = api.getDetailedData("face/" + i + ".json") as Call<Products>
-                val res = call.execute() as Response<Products>
-                val o = res.body() as Products
-                listFace.add(o)
-
-                Log.d("logd", "doInBackground FaceTask " + o.products?.size)
-            }
-
-            for (i in allCategory.getCategory()?.get(0)?.lips!!) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(NetworkCalls.Base_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-                val api = retrofit.create(NetworkCalls::class.java)
-
-                //var  u=allCategory.getCategory()?.get(0)?.lips!!.get(0)
-                //Log.d("LogdLipsTask: "+1, u)
-                var call = api.getDetailedData("eyes/" + i + ".json") as Call<Products>
-                val res = call.execute() as Response<Products>
-                val o = res.body() as Products
-                listEye.add(o)
-                Log.d("logd", "doInBackground EyesTask " + o.products?.size)
-            }
-
-            return null
-        }
-
-
-        override fun onPostExecute(result: Void?) {
-            super.onPostExecute(result)
-            Log.d("logd", "onPostExecute FaceTask " + list.size)
-
-        }
-
-    }
-
-
-    class EyesTask(
-        allCategory: CategoryPOJO,
-        list: ArrayList<Products>,
-        listFace: ArrayList<Products>,
-        listEye: ArrayList<Products>
-    ) : AsyncTask<Void, Void, Void>() {
-
-        var allCategory = allCategory
-        var list = list
-        var listFace = listFace
-        var listEye = listEye
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            // ...
-        }
-
-        override fun doInBackground(vararg params: Void?): Void? {
-
-            for (i in allCategory.getCategory()?.get(0)?.lips!!) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(NetworkCalls.Base_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-                val api = retrofit.create(NetworkCalls::class.java)
-
-                //var  u=allCategory.getCategory()?.get(0)?.lips!!.get(0)
-                //Log.d("LogdLipsTask: "+1, u)
-                var call = api.getDetailedData("eyes/" + i + ".json") as Call<Products>
-                val res = call.execute() as Response<Products>
-                val o = res.body() as Products
-                listEye.add(o)
-                Log.d("logd", "doInBackground EyesTask " + o.products?.size)
-            }
-
-            return null
-        }
-
-
-        override fun onPostExecute(result: Void?) {
-            super.onPostExecute(result)
-            Log.d("logd", "onPostExecute EyesTask: " + list.get(0).products?.get(0)?.title)
-            Log.d("logd", "onPostExecute EyesTask: " + listFace.get(0).products?.get(0)?.title)
-            Log.d("logd", "onPostExecute EyesTask: " + listEye.get(0).products?.get(0)?.title)
-
-        }
-
-    }
-
-    fun updateLips() {
-        Log.d("logd", "onPostExecute: " + lipsCategory.size)
-        Log.d("logd", "onPostExecute: " + lipsCategory.get(0).products?.size)
-
-
-    }
-
-    fun someTask() {
-        Log.d("LogdLipsTask: ", "Start Lips Task")
-
-        for (i in allCategory.getCategory()?.get(0)?.lips!!) {
-
-            val retrofit = Retrofit.Builder()
-                .baseUrl(NetworkCalls.Base_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val api = retrofit.create(NetworkCalls::class.java)
-
-            var u = allCategory.getCategory()?.get(0)?.lips!!.get(0)
-            Log.d("LogdLipsTask: " + i, u)
-            var call = api.getDetailedData("lips/" + i + ".json") as Call<Products>
-
-
-            call.execute(object : Callback<Products> {
-                override fun onResponse(call: Call<Products>, response: Response<Products>) {
-                    Log.d("LogdgetTitle: ", response.body().toString())
-                    Log.d("Logdresponse.code(): ", response.toString())
-                    Log.d("LogdcallURL: ", call.request().url().toString())
-                    if (response.code() == 200) {
-                        Log.d("Logdresponse: ", "200")
-
-                        val jsonResponse = response.body() as Products
-                        Log.d("Logdresponse.200): ", jsonResponse.products?.size.toString())
-
-                    } else {
-                        //Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                override
-                fun onFailure(call: Call<Products>, t: Throwable) {
-                    Log.d("LogdcallURL: ", call.request().url().toString())
-                    Log.d("LogdThrowable: ", t.toString())
-                }
-            })
-
-            //val taskService = ServiceGenerator.createService(TaskService::class.java)
-
-
-        }
-
-
-    }
-
-    fun LipsTaskService() {
-        Log.d("Logd=============", "LipsTaskService")
-        val retrofit = Retrofit.Builder()
-            .baseUrl(NetworkCalls.Base_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val api = retrofit.create(NetworkCalls::class.java)
-
-        var u = allCategory.getCategory()?.get(0)?.lips!!.get(0)
-        Log.d("LogdLipsTask: " + 1, u)
-        var call = api.getDetailedData("lips/" + 1 + ".json") as Call<Products>
-        val o = call.execute() as Response<Products>
-        Log.d("logd", "call.execute" + o)
-    }
 
     fun LipsTaskRX() {
 
@@ -481,8 +280,4 @@ class MainActivity : AppCompatActivity() {
         mCompositeDisposable?.clear()
 
     }
-}
-
-private fun <T> Call<T>.execute(callback: Callback<T>) {
-
 }
