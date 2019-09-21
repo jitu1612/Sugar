@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="7dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="7dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/ivpro1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_height"
+            android:background="@color/grey"/>
+
+        <TextView
+            android:id="@+id/tvproduct1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            tools:text="Lips" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="7dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/ivpro2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_height"
+            android:background="@color/grey"/>
+
+        <TextView
+            android:id="@+id/tvpro2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            tools:text="Lips" />
+    </LinearLayout>
+
+</LinearLayout>
